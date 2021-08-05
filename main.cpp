@@ -176,7 +176,7 @@ int main(int argc, char* argv[]) {
             k = 1;
         }
 
-        // Relay Packet
+        // Send Relay Packet
         if(ntohs(IPpkt_eth -> ether_type) == (EthHdr::Ip4) && Mac(IPpkt_eth -> ether_shost) == Sender_Mac_Addr) {
             k = 2;
         }
@@ -211,7 +211,7 @@ int main(int argc, char* argv[]) {
                 break;
             }
 
-            case 2: {   //  Send Relay Packet to Target
+            case 2: {   //  Send Relay Packet
                 Mac(IPpkt_eth -> ether_dhost) = Target_Mac_Addr;
                 Mac(IPpkt_eth -> ether_shost) = My_Mac_Addr;
                 res = pcap_sendpacket(handle, received_pkt, sizeof(pcap_pkthdr));
@@ -231,7 +231,7 @@ int main(int argc, char* argv[]) {
                 break;
             }
 
-            default: {  // Send Request Arp Infection Packet
+            default: {  // Send Arp Request Infection Packet
                 EthArpPacket Request_packet;
                 sleep(1);
                 Request_packet.eth_.dmac_ = Sender_Mac_Addr;
